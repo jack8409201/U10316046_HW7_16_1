@@ -7,6 +7,8 @@ public class PickFourCards extends JFrame{
 	private static JButton Refresh = new JButton("Refresh");
 	private static JPanel panel1 = new JPanel();
 	private static JPanel panel2 = new JPanel();
+	private static ImageIcon[] image = new ImageIcon[52];
+	private static int[] poker = new int[4];
 	private static JLabel card1;
 	private static JLabel card2;
 	private static JLabel card3;
@@ -20,15 +22,36 @@ public class PickFourCards extends JFrame{
   
 		panel2.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 		panel2.setLayout(new FlowLayout());
-		card1 = new JLabel();
-		card2 = new JLabel();
-		card3 = new JLabel();
-		card4 = new JLabel();
+		card1 = new JLabel(image[poker[0]]);
+		card2 = new JLabel(image[poker[1]]);
+		card3 = new JLabel(image[poker[2]]);
+		card4 = new JLabel(image[poker[3]]);
 		panel2.add(card1);
 		panel2.add(card2);
 		panel2.add(card3);
 		panel2.add(card4);
 		add(panel2, BorderLayout.CENTER);
+	}
+	
+	public void deckOfCards(){
+		int[] deck = new int[52];
+		
+		for (int i = 0; i < deck.length; i++)
+			deck[i] = i;
+     
+		for (int i = 0; i < deck.length; i++) {
+			int index = (int)(Math.random() * deck.length);
+			int temp = deck[i];
+			deck[i] = deck[index]; 
+			deck[index] = temp;
+		}
+		
+		for(int i = 0; i < 4; i++){
+			poker[i] = deck[i];
+		}
+		for(int i = 1;i<=52;i++){
+			image[i-1] = new ImageIcon((getClass().getResource("card/"+i+".png")));
+		}
 	}
 	
 	public static void main(String[] args) {
