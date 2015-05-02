@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class PickFourCards extends JFrame{
+public class PickFourCards extends JFrame implements ActionListener{
  
 	private static JButton Refresh = new JButton("Refresh");
 	private static JPanel panel1 = new JPanel();
@@ -15,7 +15,24 @@ public class PickFourCards extends JFrame{
 	private static JLabel card4;
 	
 	public PickFourCards(){ 
-				
+		deckOfCards();
+		display();
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == Refresh){
+			deckOfCards();
+			card1.setIcon(image[poker[0]]);
+			card2.setIcon(image[poker[1]]);
+			card3.setIcon(image[poker[2]]);
+			card4.setIcon(image[poker[3]]);
+			panel1.repaint();
+		}
+	}
+	
+	public void display(){
+		
 		panel1.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 		panel1.add(Refresh,BorderLayout.SOUTH);
 		add(panel1, BorderLayout.SOUTH);
@@ -31,8 +48,10 @@ public class PickFourCards extends JFrame{
 		panel2.add(card3);
 		panel2.add(card4);
 		add(panel2, BorderLayout.CENTER);
+		
+		Refresh.addActionListener(this);
 	}
-	
+ 
 	public void deckOfCards(){
 		int[] deck = new int[52];
 		
